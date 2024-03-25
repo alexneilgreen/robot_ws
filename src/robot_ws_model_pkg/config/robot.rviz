@@ -6,6 +6,12 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /TF1
+        - /TF1/Tree1/base_link1
+        - /TF1/Tree1/base_link1/chassis_base1
+        - /TF1/Tree1/base_link1/chassis_base1/front_camera_link1
+        - /TF1/Tree1/base_link1/chassis_base1/rear_camera_link1
+        - /Axes1
       Splitter Ratio: 0.5
     Tree Height: 549
   - Class: rviz/Selection
@@ -89,6 +95,15 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        front_camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_camera_link_optical:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         front_left_wheel:
           Alpha: 1
           Show Axes: false
@@ -99,11 +114,25 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        laser:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         lid:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        rear_camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear_camera_link_optical:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -129,11 +158,21 @@ Visualization Manager:
           Value: false
         chassis_top:
           Value: false
+        front_camera_link:
+          Value: false
+        front_camera_link_optical:
+          Value: false
         front_left_wheel:
           Value: true
         front_right_wheel:
           Value: true
+        laser:
+          Value: false
         lid:
+          Value: false
+        rear_camera_link:
+          Value: false
+        rear_camera_link_optical:
           Value: false
       Marker Alpha: 1
       Marker Scale: 1
@@ -152,6 +191,13 @@ Visualization Manager:
           chassis_base:
             chassis_top:
               lid:
+                laser:
+                  {}
+            front_camera_link:
+              front_camera_link_optical:
+                {}
+            rear_camera_link:
+              rear_camera_link_optical:
                 {}
           front_left_wheel:
             {}
@@ -196,7 +242,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.759432792663574
+      Distance: 2.850785970687866
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -212,9 +258,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.38039812445640564
+      Pitch: 0.620398223400116
       Target Frame: <Fixed Frame>
-      Yaw: 0.35039809346199036
+      Yaw: 0.630398154258728
     Saved: ~
 Window Geometry:
   Displays:
@@ -233,4 +279,4 @@ Window Geometry:
     collapsed: false
   Width: 1200
   X: 449
-  Y: 78
+  Y: 27
