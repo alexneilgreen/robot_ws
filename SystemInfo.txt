@@ -1,0 +1,152 @@
+----------------------------------------------------------------------------------------------------
+Update Ubuntu
+----------------------------------------------------------------------------------------------------
+
+sudo apt update
+sudo apt upgrade
+
+<Install Google Chrome>
+<Install VS Code>
+<Install Arduino IDE>
+
+sudo apt install git-all
+<Generate ssh key and upload it to github>
+
+
+
+----------------------------------------------------------------------------------------------------
+Install ROS Noetic
+----------------------------------------------------------------------------------------------------
+
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt install curl # if you haven't already installed curl
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+sudo apt update
+sudo apt install ros-noetic-desktop #Pi
+sudo apt install ros-noetic-desktop-full #Dev Comp
+source /opt/ros/noetic/setup.bash
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+sudo apt install python3-rosdep
+sudo rosdep init
+rosdep update
+
+
+
+----------------------------------------------------------------------------------------------------
+Installation and Experimental Tests of a Low-Cost Lidar (SLAMTECH RPLIDAR R1) in ROS - Perception
+----------------------------------------------------------------------------------------------------
+
+mkdir -p ~/lidar_ws/src
+cd ~/lidar_ws/src
+git clone https://github.com/Slamtec/rplidar_ros
+cd ~/lidar_ws
+catkin_make
+source devel/setup.bash
+catkin_make rplidarNode
+ls -la /dev | grep ttyUSB
+sudo chmod 666 /dev/ttyUSB0
+
+### In a new terminal ###
+roscore
+
+#### Back in the original terminal ###
+roslaunch rplidar_ros view_rplidar_a1.launch
+
+
+
+----------------------------------------------------------------------------------------------------
+Create URDF File and Model of Four-Wheeled Mobile Robot in ROS - ROS Robotics Tutorial
+----------------------------------------------------------------------------------------------------
+
+sudo apt-get install ros-noetic-rviz
+
+### In a new terminal ###
+roscore
+
+#### Back in the original terminal ###
+rosrun rviz rviz
+
+sudo apt-get install ros-noetic-urdf
+sudo apt-get install liburdfdom-tools
+sudo apt-get install ros-noetic-xacro
+
+mkdir -p ~/robot_ws/src
+cd ~/robot_ws
+catkin_make
+source ~/robot_ws/devel/setup.bash
+echo $ROS_PACKAGE_PATH
+
+catkin_create_pkg robot_ws_model_pkg roscpp tf2 geometry_msgs urdf rviz joint_state_publisher_gui
+
+cd ~/robot_ws/src/robot_ws_model_pkg/
+mkdir urdf
+mkdir launch
+mkdir config
+cd urdf
+code robot.urdf
+### Create URDF File ###
+cd ~/robot_ws/src/robot_ws_model_pkg/launch
+code robot.launch
+### Create Launch File ###
+cd ~/robot_ws
+catkin_make
+
+roslaunch robot_ws_model_pkg robot.launch
+
+
+
+----------------------------------------------------------------------------------------------------
+Modeling, Simulation, and Control of 4-Wheeled Mobile Robot in ROS and Gazebo - From Scratch!
+
+https://www.youtube.com/watch?v=ad2jd8SCK-o	
+----------------------------------------------------------------------------------------------------
+
+gazebo #Will launch Gazebo
+gazebo --version #Will tell you the gazebo version 11.11.0
+
+sudo apt-get install ros-noetic-gazebo-ros-pkgs
+sudo apt-get install ros-noetic-gazebo-msgs
+sudo apt-get install ros-noetic-gazebo-plugins
+sudo apt-get install ros-noetic-gazebo-ros-control
+sudo apt-get install ros-noetic-teleop-twist-keyboard
+
+mkdir -p ~/robot_gazebo/src
+cd ~/robot_gazebo
+catkin_make
+source ~/robot_gazebo/devel/setup.bash
+echo $ROS_PACKAGE_PATH
+cd ~/robot_gazebo/src
+
+catkin_create_pkg robot_model_pkg gazebo_msgs gazebo_plugins gazebo_ros gazebo_ros_control
+
+### EXAMPLE ###
+#cd ~/robot_gazebo/src/robot_model_pkg
+#mkdir urdf
+#cd ~/robot_gazebo/src/robot_model_pkg/urdf
+#code robot.xacro
+### ACTUAL ###
+cd ~/robot_gazebo/src/robot_model_pkg
+mkdir description
+cd ~/robot_gazebo/src/robot_model_pkg/description
+### Importing Description Files from my_bot ###
+### Modify Description Files for Control File ###
+
+cd ~/robot_gazebo/src/robot_model_pkg
+mkdir launch
+cd ~/robot_gazebo/src/robot_model_pkg/launch
+code robot_xacro.launch
+
+
+cd ~/robot_gazebo
+catkin_make
+
+### In a new terminal ###
+roscore
+
+#### Back in the original terminal ###
+roslaunch robot_model_pkg robot_xacro.launch
+
+### In a new terminal ###
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py
