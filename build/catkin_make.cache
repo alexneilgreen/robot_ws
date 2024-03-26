@@ -1,2 +1,2 @@
-robot_ws_model_pkg:rplidar_ros
+robot_model_pkg:robot_ws_model_pkg
 -DCATKIN_DEVEL_PREFIX=/home/ubuntu/robot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/robot_ws/install -G Unix Makefiles
